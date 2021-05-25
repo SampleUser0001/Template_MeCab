@@ -1,8 +1,8 @@
 # 任意のイメージを取得
-FROM python
+FROM python:3-slim
 
 RUN apt update && apt upgrade -y
-RUN apt install -y wget gcc make g++ less
+RUN apt install -y wget gcc make g++ less git curl xz-utils file
 
 RUN git config --global ssh.postBuffer 524288000
 RUN git config --global http.postBuffer 524288000
@@ -37,8 +37,7 @@ RUN pip install mecab-python3 python-dotenv
 WORKDIR /app
 
 COPY app /app
-COPY start.sh /start.sh
 
-RUN chmod 755 /start.sh
+RUN chmod 755 /app/start.sh
 
-CMD [ "/start.sh" ]
+CMD [ "/app/start.sh" ]
